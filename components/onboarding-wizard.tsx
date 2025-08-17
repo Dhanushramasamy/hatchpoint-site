@@ -44,6 +44,8 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
     referralCode: "",
     suggestions: "",
   })
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const totalSteps = 3
   const progress = (currentStep / totalSteps) * 100
@@ -93,8 +95,28 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
     }
   }
 
+  const resetWizard = () => {
+    setFormData({
+      fullName: "",
+      contactNumber: "",
+      email: "",
+      location: "",
+      experience: "",
+      domainPreference: "",
+      otherDomain: "",
+      resume: null,
+      referralCode: "",
+      suggestions: "",
+    })
+    setCurrentStep(1)
+    setSubmitStatus("idle")
+    setErrorMessage(null)
+  }
+
   const handleSubmit = async () => {
     try {
+      setSubmitStatus("submitting")
+      setErrorMessage(null)
       const body = new FormData()
       body.append("fullName", formData.fullName)
       body.append("contactNumber", formData.contactNumber)
@@ -119,10 +141,10 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
         throw new Error(result?.error || "Failed to submit application")
       }
 
-      alert("Thank you! Your application has been submitted successfully.")
-      onClose()
+      setSubmitStatus("success")
     } catch (error: any) {
-      alert(error?.message || "Something went wrong. Please try again.")
+      setErrorMessage(error?.message || "Something went wrong. Please try again.")
+      setSubmitStatus("error")
     }
   }
 
@@ -155,21 +177,43 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
           <X className="w-5 h-5 text-gray-500 hover:text-gray-700" />
         </button>
 
-        <CardHeader className="text-center pb-2">
-          <CardTitle className="text-2xl font-bold text-gray-900">Join HatchPoint</CardTitle>
-          <p className="text-gray-600">Let's get started on your career journey</p>
-          <div className="mt-4">
-            <Progress value={progress} className="w-full h-2 bg-gray-200 [&>div]:bg-gray-900" />
-            <p className="text-sm text-gray-600 mt-2">
-              Step {currentStep} of {totalSteps}
-            </p>
-          </div>
-        </CardHeader>
+        {submitStatus === "success" ? (
+          <CardHeader className="text-center pb-2">
+            <div className="mx-auto mb-3 flex items-center justify-center">
+              <CheckCircle className="w-10 h-10 text-green-600" />
+            </div>
+            <CardTitle className="text-2xl font-bold text-gray-900">Application submitted!</CardTitle>
+            <p className="text-gray-600">Thank you for applying. We'll get back to you shortly.</p>
+          </CardHeader>
+        ) : (
+          <CardHeader className="text-center pb-2">
+            <CardTitle className="text-2xl font-bold text-gray-900">Join HatchPoint</CardTitle>
+            <p className="text-gray-600">Let's get started on your career journey</p>
+            <div className="mt-4">
+              <Progress value={progress} className="w-full h-2 bg-gray-200 [&>div]:bg-gray-900" />
+              <p className="text-sm text-gray-600 mt-2">
+                Step {currentStep} of {totalSteps}
+              </p>
+            </div>
+          </CardHeader>
+        )}
 
         <CardContent className="p-6">
-          {/* Step 1: Personal Information */}
-          {currentStep === 1 && (
-            <div className="space-y-6 animate-fade-in-up">
+          {submitStatus === "success" ? (
+            <div className="text-center space-y-6">
+              <p className="text-gray-700">We have received your details and will contact you via email or phone.</p>
+              <div className="flex items-center justify-center gap-3">
+                <Button onClick={onClose} className="bg-gray-900 hover:bg-gray-800 text-white">Close</Button>
+                <Button variant="outline" onClick={resetWizard} className="border-gray-300 text-gray-700 hover:bg-gray-50">
+                  Submit another response
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <>
+            {/* Step 1: Personal Information */}
+            {currentStep === 1 && (
+              <div className="space-y-6 animate-fade-in-up">
               <div className="text-center mb-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Personal Information</h3>
                 <p className="text-gray-600">Tell us about yourself</p>
@@ -253,12 +297,12 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
                   </RadioGroup>
                 </div>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
           {/* Step 2: Professional Information */}
           {currentStep === 2 && (
-            <div className="space-y-6 animate-fade-in-up">
+              <div className="space-y-6 animate-fade-in-up">
               <div className="text-center mb-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Professional Information</h3>
                 <p className="text-gray-600">Help us understand your career preferences</p>
@@ -345,12 +389,12 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
                   />
                 </div>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
           {/* Step 3: Final Details */}
           {currentStep === 3 && (
-            <div className="space-y-6 animate-fade-in-up">
+              <div className="space-y-6 animate-fade-in-up">
               <div className="text-center mb-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Additional Information</h3>
                 <p className="text-gray-600">Any specific requirements or suggestions?</p>
@@ -396,15 +440,15 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
                   )}
                 </div>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
             <Button
               variant="outline"
               onClick={prevStep}
-              disabled={currentStep === 1}
+              disabled={currentStep === 1 || submitStatus === "submitting"}
               className="flex items-center gap-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-all duration-300"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -414,7 +458,7 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
             {currentStep < totalSteps ? (
               <Button
                 onClick={nextStep}
-                disabled={!isStepValid()}
+                disabled={!isStepValid() || submitStatus === "submitting"}
                 className="flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white hover:scale-105 transition-all duration-300"
               >
                 Next
@@ -423,13 +467,16 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
             ) : (
               <Button
                 onClick={handleSubmit}
+                disabled={submitStatus === "submitting"}
                 className="flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white hover:scale-105 transition-all duration-300"
               >
                 <CheckCircle className="w-4 h-4" />
-                Submit Application
+                {submitStatus === "submitting" ? "Submitting..." : "Submit Application"}
               </Button>
             )}
           </div>
+          </>
+          )}
         </CardContent>
       </Card>
     </div>
