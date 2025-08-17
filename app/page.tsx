@@ -20,18 +20,25 @@ export default function HatchPointLanding() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-20 px-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 px-4">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(600px circle at 50% -20%, rgba(255,255,255,0.10), transparent 40%)",
+          }}
+        ></div>
         <div className="container mx-auto max-w-6xl relative z-10">
           <div className="text-center">
             <div
               className={`transition-all duration-1000 ${isVisible ? "animate-bounce-in opacity-100" : "opacity-0"}`}
             >
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-4 hover-lift">HatchPoint</h1>
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 hover-lift">HatchPoint</h1>
               <div className="h-12 flex justify-center items-center mb-8">
                 <p
-                  className={`text-xl md:text-2xl text-blue-700 font-medium italic ${isVisible ? "animate-typewriter" : "opacity-0"} animation-delay-800`}
+                  className={`text-xl md:text-2xl text-slate-300 font-medium italic ${isVisible ? "animate-typewriter" : "opacity-0"} animation-delay-800`}
                 >
                   Your Next Chapter Hatched
                 </p>
@@ -41,7 +48,7 @@ export default function HatchPointLanding() {
             <div
               className={`transition-all duration-1000 animation-delay-1200 ${isVisible ? "animate-slide-up opacity-100" : "opacity-0"}`}
             >
-              <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
                 We don't just write resumes — we craft career stories that get you noticed.
               </p>
 
@@ -54,9 +61,9 @@ export default function HatchPointLanding() {
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className={`flex items-center gap-2 text-gray-900 animate-scale-in ${item.delay} opacity-0 hover-lift`}
+                    className={`flex items-center gap-2 text-white animate-scale-in ${item.delay} opacity-0 hover-lift`}
                   >
-                    <CheckCircle className="w-5 h-5 text-blue-600 group-hover-wiggle" />
+                    <CheckCircle className="w-5 h-5 text-sky-400 group-hover-wiggle" />
                     <span className="font-medium">{item.text}</span>
                   </div>
                 ))}
@@ -65,7 +72,7 @@ export default function HatchPointLanding() {
               <Button
                 size="lg"
                 onClick={() => setShowOnboarding(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transform hover:scale-105 transition-all duration-300 animate-pulse-slow hover-glow relative overflow-hidden group"
+                className="bg-sky-500 hover:bg-sky-400 text-white px-8 py-4 text-lg font-semibold rounded-lg transform hover:scale-105 transition-all duration-300 animate-pulse-slow hover-glow relative overflow-hidden group"
               >
                 <span className="relative z-10">Get Started Today</span>
                 <div className="absolute inset-0 animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -78,30 +85,30 @@ export default function HatchPointLanding() {
           className="absolute top-20 left-10 animate-float animation-delay-200 z-0"
           style={{ transform: `translateY(${scrollY * 0.1}px)` }}
         >
-          <div className="w-16 h-16 bg-blue-100 rounded-full animate-pulse-slow opacity-60"></div>
+          <div className="w-16 h-16 bg-white/10 rounded-full animate-pulse-slow opacity-70"></div>
         </div>
         <div
           className="absolute bottom-20 right-10 animate-float animation-delay-600 z-0"
           style={{ transform: `translateY(${scrollY * -0.15}px)` }}
         >
-          <div className="w-12 h-12 bg-indigo-100 rounded-full opacity-60"></div>
+          <div className="w-12 h-12 bg-white/10 rounded-full opacity-70"></div>
         </div>
         <div
           className="absolute top-1/2 left-1/4 animate-float animation-delay-1000 z-0"
           style={{ transform: `translateY(${scrollY * 0.08}px)` }}
         >
-          <div className="w-8 h-8 bg-blue-50 rounded-full opacity-60"></div>
+          <div className="w-8 h-8 bg-white/10 rounded-full opacity-70"></div>
         </div>
         <div
           className="absolute bottom-1/3 right-1/4 animate-float animation-delay-1400 z-0"
           style={{ transform: `translateY(${scrollY * -0.12}px)` }}
         >
-          <div className="w-20 h-20 bg-indigo-100 rounded-full animate-pulse-slow opacity-60"></div>
+          <div className="w-20 h-20 bg-white/10 rounded-full animate-pulse-slow opacity-70"></div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4 bg-slate-50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 animate-fade-in-up">Our Services</h2>
@@ -224,7 +231,7 @@ export default function HatchPointLanding() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4 bg-slate-50">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 animate-fade-in-up">Get In Touch</h2>

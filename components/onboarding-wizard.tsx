@@ -165,7 +165,7 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
       onClick={handleBackdropClick}
     >
       <Card className="w-full max-w-2xl mx-auto bg-white border border-gray-200 shadow-2xl animate-scale-in relative">
