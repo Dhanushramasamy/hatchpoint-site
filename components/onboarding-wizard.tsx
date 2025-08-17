@@ -93,10 +93,37 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
     }
   }
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData)
-    alert("Thank you! Your application has been submitted successfully.")
-    onClose()
+  const handleSubmit = async () => {
+    try {
+      const body = new FormData()
+      body.append("fullName", formData.fullName)
+      body.append("contactNumber", formData.contactNumber)
+      body.append("email", formData.email)
+      body.append("location", formData.location)
+      body.append("experience", formData.experience)
+      body.append("domainPreference", formData.domainPreference)
+      body.append("otherDomain", formData.otherDomain || "")
+      body.append("referralCode", formData.referralCode || "")
+      body.append("suggestions", formData.suggestions || "")
+      if (formData.resume) {
+        body.append("resume", formData.resume)
+      }
+
+      const response = await fetch("/api/applications", {
+        method: "POST",
+        body,
+      })
+
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(result?.error || "Failed to submit application")
+      }
+
+      alert("Thank you! Your application has been submitted successfully.")
+      onClose()
+    } catch (error: any) {
+      alert(error?.message || "Something went wrong. Please try again.")
+    }
   }
 
   const isStepValid = () => {
