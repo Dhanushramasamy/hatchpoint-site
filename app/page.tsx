@@ -1,23 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, FileText, Linkedin, Mail, Rocket, Star, Phone } from "lucide-react"
 import OnboardingWizard from "@/components/onboarding-wizard"
 
 export default function HatchPointLanding() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
   const [showOnboarding, setShowOnboarding] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(true)
-
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100">
@@ -32,79 +22,42 @@ export default function HatchPointLanding() {
         ></div>
         <div className="container mx-auto max-w-6xl relative z-10">
           <div className="text-center">
-            <div
-              className={`transition-all duration-1000 ${isVisible ? "animate-bounce-in opacity-100" : "opacity-0"}`}
-            >
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 hover-lift">HatchPoint</h1>
-              <div className="h-12 flex justify-center items-center mb-8">
-                <p
-                  className={`text-xl md:text-2xl text-slate-300 font-medium italic ${isVisible ? "animate-fade-in-up opacity-100" : "opacity-0"} animation-delay-800`}
-                >
-                  Your Next Chapter Hatched
-                </p>
-              </div>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 animation-delay-1200 ${isVisible ? "animate-slide-up opacity-100" : "opacity-0"}`}
-            >
-              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-                We don't just write resumes — we craft career stories that get you noticed.
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 animate-fade-in-up animation-delay-200">HatchPoint</h1>
+            <div className="h-12 flex justify-center items-center mb-8">
+              <p className="text-xl md:text-2xl text-slate-300 font-medium italic animate-fade-in-up animation-delay-400">
+                Your Next Chapter Hatched
               </p>
-
-              <div className="flex flex-wrap justify-center gap-4 mb-12">
-                {[
-                  { text: "ATS-Friendly", delay: "animation-delay-1400" },
-                  { text: "Customized for You", delay: "animation-delay-1600" },
-                  { text: "Visually Professional", delay: "animation-delay-1800" },
-                  { text: "Result-Oriented", delay: "animation-delay-2000" },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className={`flex items-center gap-2 text-white animate-scale-in ${item.delay} opacity-0 hover-lift`}
-                  >
-                    <CheckCircle className="w-5 h-5 text-sky-400 group-hover-wiggle" />
-                    <span className="font-medium">{item.text}</span>
-                  </div>
-                ))}
-              </div>
-
-              <Button
-                size="lg"
-                onClick={() => setShowOnboarding(true)}
-                className="bg-sky-500 hover:bg-sky-400 text-white px-8 py-4 text-lg font-semibold rounded-lg transform hover:scale-105 transition-all duration-300 animate-pulse-slow hover-glow relative overflow-hidden group"
-              >
-                <span className="relative z-10">Get Started Today</span>
-                <div className="absolute inset-0 animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </Button>
             </div>
+
+            <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in-up animation-delay-600">
+              We don't just write resumes — we craft career stories that get you noticed.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-6 mb-12">
+              {[
+                { text: "ATS-Friendly", delay: "animation-delay-800" },
+                { text: "Customized for You", delay: "animation-delay-1000" },
+                { text: "Visually Professional", delay: "animation-delay-1200" },
+                { text: "Result-Oriented", delay: "animation-delay-1400" },
+              ].map((item, index) => (
+                <div key={index} className={`flex items-center gap-2 text-white animate-fade-in-up ${item.delay}`}>
+                  <CheckCircle className="w-5 h-5 text-sky-400" />
+                  <span className="font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              size="lg"
+              onClick={() => setShowOnboarding(true)}
+              className="bg-sky-500 hover:bg-sky-400 text-white px-8 py-4 text-lg font-semibold rounded-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-1600"
+            >
+              Get Started Today
+            </Button>
           </div>
         </div>
 
-        <div
-          className="absolute top-20 left-10 animate-float animation-delay-200 z-0"
-          style={{ transform: `translateY(${scrollY * 0.1}px)` }}
-        >
-          <div className="w-16 h-16 bg-white/10 rounded-full animate-pulse-slow opacity-70"></div>
-        </div>
-        <div
-          className="absolute bottom-20 right-10 animate-float animation-delay-600 z-0"
-          style={{ transform: `translateY(${scrollY * -0.15}px)` }}
-        >
-          <div className="w-12 h-12 bg-white/10 rounded-full opacity-70"></div>
-        </div>
-        <div
-          className="absolute top-1/2 left-1/4 animate-float animation-delay-1000 z-0"
-          style={{ transform: `translateY(${scrollY * 0.08}px)` }}
-        >
-          <div className="w-8 h-8 bg-white/10 rounded-full opacity-70"></div>
-        </div>
-        <div
-          className="absolute bottom-1/3 right-1/4 animate-float animation-delay-1400 z-0"
-          style={{ transform: `translateY(${scrollY * -0.12}px)` }}
-        >
-          <div className="w-20 h-20 bg-white/10 rounded-full animate-pulse-slow opacity-70"></div>
-        </div>
+        {/* Decorative shapes removed for a clean, motion-free hero */}
       </section>
 
       {/* Services Section */}
