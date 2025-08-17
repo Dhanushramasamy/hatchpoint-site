@@ -38,7 +38,7 @@ export default function HatchPointLanding() {
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 hover-lift">HatchPoint</h1>
               <div className="h-12 flex justify-center items-center mb-8">
                 <p
-                  className={`text-xl md:text-2xl text-slate-300 font-medium italic ${isVisible ? "animate-typewriter" : "opacity-0"} animation-delay-800`}
+                  className={`text-xl md:text-2xl text-slate-300 font-medium italic ${isVisible ? "animate-fade-in-up opacity-100" : "opacity-0"} animation-delay-800`}
                 >
                   Your Next Chapter Hatched
                 </p>

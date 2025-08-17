@@ -371,6 +371,15 @@
   animation-delay: 1.6s;
 }
 
+/* Missing delays used on home page */
+.animation-delay-1800 {
+  animation-delay: 1.8s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
 /* Added hover effects and interactive animations */
 .hover-lift {
   transition: all 0.3s ease;
