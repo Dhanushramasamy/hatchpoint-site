@@ -15,6 +15,13 @@ export function middleware(req: NextRequest) {
 
   const isAdminPage = pathname.startsWith("/admin")
   const isApplicationsApi = pathname.startsWith("/api/applications")
+  const isAdminLoginApi = pathname.startsWith("/api/admin/login")
+  const isAdminLoginPage = pathname === "/admin/login"
+
+  // Allow login page and login API without auth
+  if (isAdminLoginPage || isAdminLoginApi) {
+    return NextResponse.next()
+  }
 
   // Only protect DELETE for applications API; protect all for /admin
   if (!isAdminPage && !(isApplicationsApi && req.method === "DELETE")) {
@@ -32,21 +39,32 @@ export function middleware(req: NextRequest) {
     } catch {}
   }
 
+  // Gate /admin with a one-time cookie, otherwise redirect to login
+  const cookie = req.cookies.get("admin-once")?.value
+  if (cookie === "1") {
+    // Clear cookie after admission to force prompt each time
+    const res = NextResponse.next()
+    res.cookies.set("admin-once", "", { path: "/", maxAge: 0 })
+    return res
+  }
+
+  // Fallback to Basic auth if present; otherwise redirect to login page
   const auth = req.headers.get("authorization")
-  if (!auth || !auth.toLowerCase().startsWith("basic ")) {
+  if (auth && auth.toLowerCase().startsWith("basic ")) {
+    const base64Credentials = auth.split(" ")[1]
+    try {
+      const decoded = atob(base64Credentials)
+      const [, pass] = decoded.split(":")
+      if (pass === ADMIN_PASS) {
+        return NextResponse.next()
+      }
+    } catch {}
     return unauthorized()
   }
 
-  const base64Credentials = auth.split(" ")[1]
-  try {
-    const decoded = atob(base64Credentials)
-    const [, pass] = decoded.split(":")
-    if (pass === ADMIN_PASS) {
-      return NextResponse.next()
-    }
-  } catch {}
-
-  return unauthorized()
+  const url = req.nextUrl.clone()
+  url.pathname = "/admin/login"
+  return NextResponse.redirect(url)
 }
 
 export const config = {
