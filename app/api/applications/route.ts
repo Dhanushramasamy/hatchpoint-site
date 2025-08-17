@@ -94,4 +94,57 @@ export async function POST(request: Request) {
   }
 }
 
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    let idRaw: unknown = null
+    const idParam = searchParams.get("id")
+    if (idParam) {
+      idRaw = idParam
+    }
+
+    // Fallback: read from JSON body if provided
+    if (idRaw == null) {
+      try {
+        const body = await request.json()
+        if (body && (body as any).id != null) {
+          idRaw = (body as any).id
+        }
+      } catch {}
+    }
+
+    if (idRaw == null || String(idRaw).trim().length === 0) {
+      return NextResponse.json({ error: "Missing or invalid id" }, { status: 400 })
+    }
+
+    const idFilter = /^\d+$/.test(String(idRaw)) ? Number(idRaw) : String(idRaw)
+
+    // Find row including resume path
+    const { data: row, error: fetchError } = await supabaseAdmin
+      .from("applications")
+      .select("id, resume_path")
+      .eq("id", idFilter)
+      .single()
+    if (fetchError) {
+      return NextResponse.json({ error: fetchError.message }, { status: 400 })
+    }
+
+    // Delete DB row
+    const { error: deleteError } = await supabaseAdmin.from("applications").delete().eq("id", idFilter)
+    if (deleteError) {
+      return NextResponse.json({ error: deleteError.message }, { status: 400 })
+    }
+
+    // Delete storage object if exists
+    if (row?.resume_path) {
+      const bucketId = "hatchpoint-uploads"
+      await supabaseAdmin.storage.from(bucketId).remove([row.resume_path])
+    }
+
+    return NextResponse.json({ success: true })
+  } catch (err: any) {
+    return NextResponse.json({ error: err?.message || "Unknown error" }, { status: 500 })
+  }
+}
+
 

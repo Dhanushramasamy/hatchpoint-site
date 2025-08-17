@@ -410,7 +410,7 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
                   rows={6}
                   value={formData.suggestions}
                   onChange={(e) => updateFormData("suggestions", e.target.value)}
-                  className="mt-1 border-gray-300 focus:ring-gray-900 focus:border-gray-900 transition-all duration-300 hover:border-gray-400"
+                  className="mt-1 border-gray-300 focus:ring-gray-900 focus:border-gray-900 transition-all duration-300 hover:border-gray-400 max-h-48 overflow-auto resize-none"
                 />
               </div>
 
