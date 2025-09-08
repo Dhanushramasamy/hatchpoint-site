@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -187,6 +188,15 @@ export default function OnboardingWizard({ isOpen, onClose }: OnboardingWizardPr
           </CardHeader>
         ) : (
           <CardHeader className="text-center pb-2">
+            <div className="flex justify-center mb-4">
+              <Image
+                src="/whitebg_logo.png"
+                alt="HatchPoint Logo"
+                width={280}
+                height={84}
+                className="h-19 w-auto"
+              />
+            </div>
             <CardTitle className="text-2xl font-bold text-gray-900">Join HatchPoint</CardTitle>
             <p className="text-gray-600">Let's get started on your career journey</p>
             <div className="mt-4">

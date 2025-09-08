@@ -14,6 +14,32 @@ export const metadata: Metadata = {
   description:
     "Professional career services including resume writing, LinkedIn optimization, cover letters, and career branding. We craft career stories that get you noticed.",
   generator: "v0.app",
+  icons: {
+    icon: [
+      { url: "/Emblem_logo.png", sizes: "16x16" },
+      { url: "/Emblem_logo.png", sizes: "32x32" },
+      { url: "/Emblem_logo.png", sizes: "96x96" }
+    ],
+    apple: "/Emblem_logo.png",
+    other: [
+      {
+        rel: "icon",
+        url: "/Emblem_logo.png",
+      },
+    ],
+  },
+  openGraph: {
+    title: "HatchPoint - Your Next Chapter Hatched",
+    description: "Professional career services including resume writing, LinkedIn optimization, cover letters, and career branding. We craft career stories that get you noticed.",
+    images: ["/whitebg_logo.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HatchPoint - Your Next Chapter Hatched",
+    description: "Professional career services including resume writing, LinkedIn optimization, cover letters, and career branding. We craft career stories that get you noticed.",
+    images: ["/whitebg_logo.png"],
+  },
 }
 
 export default function RootLayout({

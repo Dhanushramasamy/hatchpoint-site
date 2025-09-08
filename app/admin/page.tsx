@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin"
 import { AdminTableClient } from "@/components/admin-table-client"
+import Image from "next/image"
 
 export const revalidate = 0
 
@@ -62,6 +63,15 @@ export default async function AdminPage() {
       <section className="py-10 px-4">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-6">
+            <div className="flex items-center gap-4 mb-6">
+              <Image
+                src="/whitebg_logo.png"
+                alt="HatchPoint Logo"
+                width={250}
+                height={75}
+                className="h-12 w-auto"
+              />
+            </div>
             <h1 className="text-2xl font-bold text-gray-900">Admin • Applications</h1>
             <p className="text-gray-600">View submitted applications and download resumes</p>
           </div>

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import Image from "next/image"
 
 export default function AdminLoginPage() {
   const [password, setPassword] = useState("")
@@ -37,7 +38,16 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
       <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white rounded-lg shadow-lg p-6 space-y-4">
-        <h1 className="text-xl font-bold text-gray-900">Admin Access</h1>
+        <div className="text-center mb-6">
+          <Image
+            src="/whitebg_logo.png"
+            alt="HatchPoint Logo"
+            width={300}
+            height={90}
+            className="h-16 w-auto mx-auto mb-3"
+          />
+        </div>
+        <h1 className="text-xl font-bold text-gray-900 text-center">Admin Access</h1>
         <p className="text-sm text-gray-600">Enter the admin password to continue.</p>
         {error && <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded p-2">{error}</div>}
         <Input
