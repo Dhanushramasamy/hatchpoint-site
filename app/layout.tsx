@@ -16,16 +16,20 @@ export const metadata: Metadata = {
   generator: "v0.app",
   icons: {
     icon: [
-      { url: "/Emblem_logo.png", sizes: "16x16" },
-      { url: "/Emblem_logo.png", sizes: "32x32" },
-      { url: "/Emblem_logo.png", sizes: "96x96" }
+      { url: "/favicon.ico", sizes: "128x128" },
+      { url: "/favicon-64x64.png", sizes: "64x64", type: "image/png" },
+      { url: "/favicon-128x128.png", sizes: "128x128", type: "image/png" },
+      { url: "/android-chrome-768x768.png", sizes: "768x768", type: "image/png" }
     ],
-    apple: "/Emblem_logo.png",
+    apple: [
+      { url: "/apple-touch-icon-720.png", sizes: "720x720", type: "image/png" }
+    ],
+    shortcut: "/favicon.ico",
     other: [
       {
-        rel: "icon",
-        url: "/Emblem_logo.png",
-      },
+        rel: "manifest",
+        url: "/site.webmanifest"
+      }
     ],
   },
   openGraph: {

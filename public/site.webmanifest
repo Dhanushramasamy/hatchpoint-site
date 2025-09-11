@@ -1,0 +1,22 @@
+{
+  "name": "HatchPoint - Your Next Chapter Hatched",
+  "short_name": "HatchPoint",
+  "description": "Professional career services including resume writing, LinkedIn optimization, cover letters, and career branding.",
+  "icons": [
+    {
+      "src": "/android-chrome-768x768.png",
+      "sizes": "768x768",
+      "type": "image/png"
+    },
+    {
+      "src": "/Emblem_logo.png",
+      "sizes": "2048x2048",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#cdf545",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}
