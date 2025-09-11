@@ -13,7 +13,7 @@ export default function HatchPointLanding() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Clean and Professional */}
-      <section className="relative py-24 px-4" style={{ background: 'linear-gradient(135deg, #cdf545 0%, #b8e63c 50%, #a3d735 100%)' }}>
+      <section className="relative py-6 md:py-8 px-4" style={{ background: 'linear-gradient(135deg, #cdf545 0%, #b8e63c 50%, #a3d735 100%)' }}>
         <div className="container mx-auto max-w-5xl">
           <div className="text-center">
             {/* Logo - 4x Larger sizing */}
@@ -29,8 +29,8 @@ export default function HatchPointLanding() {
             </div>
             
             {/* Main Content - Better hierarchy */}
-            <div className="mb-12">
-              <h1 className="text-3xl md:text-5xl text-white font-bold mb-6 leading-tight">
+            <div className="mb-4">
+              <h1 className="text-3xl md:text-5xl text-white font-bold mb-3 leading-tight">
                 Your Next Chapter Hatched
               </h1>
               <p className="text-xl md:text-2xl text-white/90 mb-0 max-w-3xl mx-auto leading-relaxed font-light">
